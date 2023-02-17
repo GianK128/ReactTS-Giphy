@@ -1,4 +1,5 @@
 export interface GifSearchParams {
+    q?: string;
     limit?: number;
     offset?: number;
     rating?: string;

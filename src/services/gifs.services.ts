@@ -17,3 +17,19 @@ export async function getTrendingGifs(params: GifSearchParams) {
         return error;
     }
 }
+
+export async function getGifsBySearch(params: GifSearchParams) {
+    try {
+        const response = await instance.get('/gifs/search', {
+            params: params,
+        });
+
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error.response?.data;
+        }
+
+        return error;
+    }
+}
