@@ -1,5 +1,5 @@
 export interface GifResponse {
-    data: Gif[];
+    data: GifData[];
     pagination: GifPagination;
     meta: Meta;
 }
@@ -18,7 +18,7 @@ interface GifPagination {
     offset: number;
 }
 
-export interface Gif {
+export interface GifData {
     type: string;
     id: string;
     url: string;

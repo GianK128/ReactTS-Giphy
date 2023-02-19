@@ -1,46 +1,32 @@
-import { Flex, Image } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { Gif, GifResponse } from '../../models/gif.model';
-import { GifPlaceholderProps } from '../../models/gifplaceholder.model';
-import { getTrendingGifs } from '../../services/gifs.services';
-
-function GifPlaceholder(props: GifPlaceholderProps) {
-    return (
-        <Flex
-            backgroundColor={'#FF6666'}
-            borderRadius={'0.5em'}
-            height={props.height}
-            width={props.width}
-        />
-    );
-}
+import { Flex, Heading, Image } from '@chakra-ui/react';
+import { Gif } from '../../components';
+import { useTrendingGifs } from '../../hooks';
+import { GifData } from '../../models';
+import trending from '../../assets/trending.svg';
 
 export default function Home() {
-    const [gifs, setGifs] = useState<Gif[]>([]);
-
-    useEffect(() => {
-        getTrendingGifs({ limit: 7 }).then((data: GifResponse) =>
-            setGifs(data.data)
-        );
-    }, []);
+    const trendingGifs = useTrendingGifs({ limit: 7 });
 
     return (
-        <Flex justifyContent={'center'} padding={'1em'}>
-            <Flex gap={'1em'}>
-                {gifs.map((gif: Gif) => (
-                    <Image
-                        key={gif.id}
-                        alt={`${gif.title} by ${gif.username}`}
-                        borderRadius={'0.5em'}
-                        fallback={
-                            <GifPlaceholder height={'12em'} width={'10em'} />
-                        }
-                        height={'12em'}
-                        objectFit={'cover'}
-                        src={gif.images.downsized_medium.url}
-                        width={'10em'}
-                    />
-                ))}
+        <Flex justifyContent={'center'} padding={'1em'} width={'full'}>
+            <Flex direction="column" width={'100%'}>
+                <Flex gap={'1em'}>
+                    <Image src={trending} />
+                    <Heading color={'white'} fontSize={'1.5em'}>
+                        Trending
+                    </Heading>
+                </Flex>
+                <Flex gap={'1em'} overflowX={'auto'} width={'100%'}>
+                    {trendingGifs.map((gif: GifData) => (
+                        <Gif
+                            key={gif.id}
+                            altText={gif.title}
+                            height={Number(gif.images.downsized_medium.height)}
+                            url={gif.images.downsized_medium.url}
+                            width={Number(gif.images.downsized_medium.width)}
+                        />
+                    ))}
+                </Flex>
             </Flex>
         </Flex>
     );
