@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GifSearchParams } from '../models/gifsearch.model';
+import { GifSearchParams } from '../models';
 import instance from './instance.services';
 
 export async function getTrendingGifs(params: GifSearchParams) {
