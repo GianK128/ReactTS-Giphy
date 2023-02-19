@@ -6,6 +6,7 @@ export default function GifPlaceholder(props: GifPlaceholderProps) {
         <Flex
             backgroundColor={'#FF6666'}
             borderRadius={'0.5em'}
+            flexShrink={0}
             height={props.height}
             width={props.width}
         />
